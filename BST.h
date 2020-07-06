@@ -102,6 +102,6 @@ class BST {
          */
         unsigned int numElements;
 
-        void recursiveDelete(Node* curr);
+        void myDelete(Node* curr);
 };
 #endif

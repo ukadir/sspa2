@@ -1,5 +1,6 @@
 #include "BST.h"
 #include <vector>
+#include <iostream>
 
 /**
  * Implement the BST constructor
@@ -31,7 +32,7 @@ unsigned int BST::size() const {
  */
 void BST::clear() {
     /* YOUR CODE HERE */
-    recursiveDelete(root);
+    myDelete(root);
     numElements=0;
 }
 
@@ -40,6 +41,7 @@ void BST::clear() {
  */
 bool BST::insert(int element) {
     /* YOUR CODE HERE */
+    cout << "----------" << element << "count =" << numElements;
     Node* curr = root;
     if(curr == NULL) {
         root = new Node(element);
@@ -53,6 +55,7 @@ bool BST::insert(int element) {
             else {
                 Node* newNode = new Node(element);
                 curr->leftChild = newNode;
+                newNode->parent = curr;
                 numElements++;
                 return true;
             }
@@ -65,6 +68,7 @@ bool BST::insert(int element) {
             else {
                 Node* newNode = new Node(element);
                 curr->rightChild = newNode;
+                newNode->parent = curr;
                 numElements++;
                 return true;
             }
@@ -138,24 +142,46 @@ BST::Node* BST::Node::successor() {
     return NULL;
 }
 
-void BST::recursiveDelete(Node* curr) {
-    /* YOUR CODE HERE*/
-    if(curr == NULL)
+void BST::myDelete(Node* curr) {
+    if (curr == NULL)
         return;
-    if(curr->leftChild == NULL && curr->rightChild == NULL) {
-        //Node* parent = curr->parent;
-        delete curr;
-        return;
+    if (curr->leftChild) {
+        myDelete(curr->leftChild);
     }
-    if(curr && curr->leftChild) {
-        recursiveDelete(curr->leftChild);
+    if(curr->rightChild) {
+        myDelete(curr->rightChild);
     }
-    if(curr && curr->rightChild) {
-        recursiveDelete(curr->rightChild);
+    /*if(curr->leftChild == NULL && curr->rightChild == NULL) {
+        Node* parent = curr->parent;
+        if(parent != NULL) {
+            if(parent->leftChild == curr) {
+                parent->leftChild = NULL;
+            } else {
+                parent->rightChild = NULL;
+            }
+            delete curr;
+            curr = parent;
+            return;
+        } else {
+            delete curr;
+            curr = NULL;
+            return;
+        }
     }
 
     if(curr) {
+        Node* parent = curr->parent;
         delete curr;
-        curr = NULL;
-    }
+        curr = parent;
+        return;
+    }*/
+    /*if (curr->parent) {
+        Node* parent = curr->parent;
+        if(parent->leftChild == curr) {
+            parent->leftChild = NULL;
+        } else if(parent->rightChild == curr) {
+            parent->rightChild = NULL;
+        }
+    }*/
+    delete curr;
 }

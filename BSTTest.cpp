@@ -41,6 +41,7 @@ int main() {
     for(int num : nums) {
         bst.insert(num);
         if(bst.size() != ++count) {
+            //cout << "SIZE " << bst.size();
             cout << MESSAGE_WRONG_SIZE << endl;
             return 1;
         }
