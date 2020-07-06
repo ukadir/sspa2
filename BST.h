@@ -43,6 +43,7 @@ class BST {
                  * @return Node* Pointer to the successor of this Node, or nullptr if none exists
                  */
                 Node* successor();
+
         };
 
         /**
@@ -100,5 +101,7 @@ class BST {
          * Total number of elements currently in the BST
          */
         unsigned int numElements;
+
+        void recursiveDelete(Node* curr);
 };
 #endif

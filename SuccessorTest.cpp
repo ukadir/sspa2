@@ -21,7 +21,7 @@ int main() {
     srand(time(NULL));
     set<int> nums;
     while(nums.size() < 100) {
-        nums.insert((rand() % 10000) - 5000);
+        nums.insert((rand() % 10000) - 5000); 
     }
 
     // create and populate BST

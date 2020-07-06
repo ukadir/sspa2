@@ -18,7 +18,7 @@ using namespace std;
  */
 int main() {
     // randomly sample a bunch of integers
-    srand(time(NULL));
+    srand(time(NULL)); 
     unordered_set<int> nums;
     while(nums.size() < 100) {
         nums.insert((rand() % 10000) - 5000);
