@@ -41,10 +41,12 @@ void BST::clear() {
  */
 bool BST::insert(int element) {
     /* YOUR CODE HERE */
-    cout << "----------" << element << "count =" << numElements;
+    //cout << "----------" << element << "count =" << numElements;
     Node* curr = root;
     if(curr == NULL) {
         root = new Node(element);
+        root->leftChild = NULL;
+        root->rightChild = NULL;
         numElements++;
         return true;
     }
@@ -145,43 +147,29 @@ BST::Node* BST::Node::successor() {
 void BST::myDelete(Node* curr) {
     if (curr == NULL)
         return;
-    if (curr->leftChild) {
+    if (curr->leftChild != NULL) {
         myDelete(curr->leftChild);
     }
-    if(curr->rightChild) {
+    if(curr->rightChild != NULL) {
         myDelete(curr->rightChild);
     }
-    /*if(curr->leftChild == NULL && curr->rightChild == NULL) {
-        Node* parent = curr->parent;
-        if(parent != NULL) {
-            if(parent->leftChild == curr) {
-                parent->leftChild = NULL;
-            } else {
-                parent->rightChild = NULL;
-            }
-            delete curr;
-            curr = parent;
-            return;
-        } else {
-            delete curr;
-            curr = NULL;
-            return;
-        }
-    }
 
-    if(curr) {
+    if (curr->parent) {
         Node* parent = curr->parent;
-        delete curr;
-        curr = parent;
-        return;
-    }*/
-    /*if (curr->parent) {
-        Node* parent = curr->parent;
-        if(parent->leftChild == curr) {
+
+        if(parent->leftChild && parent->leftChild == curr) {
+            //cout << "left if" << '\n';
             parent->leftChild = NULL;
-        } else if(parent->rightChild == curr) {
+        } else if(parent->rightChild && parent->rightChild == curr) {
+            //cout << "right if" << '\n';
             parent->rightChild = NULL;
         }
-    }*/
+    }
+    //cout << numElements << '\n';
+    if (curr == root) {
+        root = NULL;
+    }
     delete curr;
+    numElements--;
+    
 }
